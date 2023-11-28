@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/taskify/static/css/main.f6ca9182.css",
+    "main.js": "/taskify/static/js/main.be46307b.js",
+    "static/js/787.62adfd39.chunk.js": "/taskify/static/js/787.62adfd39.chunk.js",
+    "index.html": "/taskify/index.html",
+    "main.f6ca9182.css.map": "/taskify/static/css/main.f6ca9182.css.map",
+    "main.be46307b.js.map": "/taskify/static/js/main.be46307b.js.map",
+    "787.62adfd39.chunk.js.map": "/taskify/static/js/787.62adfd39.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f6ca9182.css",
+    "static/js/main.be46307b.js"
+  ]
+}
