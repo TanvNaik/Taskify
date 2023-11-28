@@ -7,7 +7,7 @@ import TaskList from './Components/TaskList'
 
 export default function Routers() {
   return (
-    <BrowserRouter basename='/Taskify'>
+    <BrowserRouter basename={window.location.pathname || ''}>
         <Switch>
             <Route path = "/" exact element = {<TaskList/>} />
             <Route path = "/add-task" exact element = {<AddTask/>} />
