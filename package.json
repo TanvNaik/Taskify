@@ -2,7 +2,7 @@
   "name": "taskify",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tanvnaik.github.io/taskify",
+  "homepage": "https://tanvnaik.github.io/Taskify/",
 
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
