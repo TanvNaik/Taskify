@@ -4,6 +4,7 @@ import {createRoot} from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Routers from './Routers';
+import { HashRouter } from 'react-router-dom';
 
 const rootElement = 
 document.getElementById('root');
@@ -11,7 +12,9 @@ const root =
 createRoot(rootElement);
 root.render(
   <StrictMode>
-    <Routers />
+    <HashRouter>
+      <Routers/>
+    </HashRouter>
   </StrictMode>,
 );
 
