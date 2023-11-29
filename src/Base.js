@@ -11,7 +11,8 @@ function Base({children}) {
       <header>
         <div className="container heading d-flex  align-items-end justify-content-between mt-2 ">
           <div className="app-name">
-            <h1 className="text-primary">Taskify</h1>
+            <Link to="/" style={{textDecoration: "none"}}>
+            <h1 className="text-primary" >Taskify</h1></Link>
           </div>
           <div className="text-secondary-emphasis slogan">
             <i><h5>&nbsp;&nbsp;Your Gateway to Productivity...</h5></i>
@@ -29,12 +30,7 @@ function Base({children}) {
               Add new Task
             </button>{" "}
           </Link>
-          &nbsp; &nbsp;
-          <Link to={"/edit-task"}>
-            <button className="btn btn-sm btn-outline-secondary" type="button">
-              Edit a Task
-            </button>
-          </Link>
+          
         </form>
       </nav>
 

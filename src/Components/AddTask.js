@@ -113,7 +113,6 @@ export default function AddTask() {
             <div className="form-floating">
               <textarea
                 className="form-control"
-                placeholder="Leave a comment here"
                 value={description}
                 name="description"
                 onChange={handleChange("description")}
@@ -140,6 +139,12 @@ export default function AddTask() {
               </select>
               <label htmlFor="floatingSelect">Set Priority</label>
             </div>
+          </div>
+          <div className="mb-3">
+          <blockquote class="blockquote">
+  <i><p class="mb-0 text-secondary" style={{fontSize: "1rem"}}>High priority tasks are represented by the color red, while low priority tasks are indicated by a blue hue, and medium priority tasks are distinguished by a green color scheme.
+</p></i>
+</blockquote>
           </div>
 
           <button type="submit" onClick={onSubmit} className="btn btn-primary">
