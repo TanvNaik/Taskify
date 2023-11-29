@@ -37,9 +37,20 @@ To run this application locally, follow these steps:
 
 - Adding Tasks: Click on the "Add Task" button and fill in the required details.
 
+https://github.com/TanvNaik/Taskify/assets/67183737/8b618641-939b-45af-b899-e25b1792b09d
+
 - Editing Tasks: Click on the "Edit Task" button and view its details and make necessary modifications and save upon confirmation.
 
+https://github.com/TanvNaik/Taskify/assets/67183737/f9b2f53d-01c2-4fbf-93aa-0460e40de235
+
+- Deleting Task: Click on the "Delete Task" button to delete a task
+
+https://github.com/TanvNaik/Taskify/assets/67183737/6cef8acf-ab37-4715-b47a-4b822874846e
+
 - Marking Task as Completed: Update the task status by clicking the checkbox or using the provided options.
+
+https://github.com/TanvNaik/Taskify/assets/67183737/895495bb-2235-4b37-a603-7d35a49d0d75
+
 
 ## Contributing
 
