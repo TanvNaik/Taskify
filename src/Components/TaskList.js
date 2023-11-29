@@ -5,6 +5,13 @@ import Modal from "react-modal";
 import { Link } from "react-router-dom";
 
 export default function TaskList() {
+  {
+    /* 
+        High Priority - Red
+        Medium Priority - Green
+        Low Priority - Blue 
+    */
+  }
   const [tasks, setTasks] = useState([]);
   const [completeTask, setCompletedTasks] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -32,7 +39,6 @@ export default function TaskList() {
       let pending = taskList.filter((task) => !task.status);
 
       let completed = taskList.filter((task) => task.status);
-      console.log(taskList);
       setCompletedTasks(completed);
       setTasks(pending);
     }
@@ -41,7 +47,6 @@ export default function TaskList() {
   useEffect(() => {
     preload();
   }, []);
-
 
   // Mark  a task as complete
   const CompletionAlert = (key) => {
@@ -74,9 +79,6 @@ export default function TaskList() {
     setModalIsOpen(true);
     setEditedTask(task);
     setOldTask(task);
-
-    // setEditedTaskId(taskId);
-    // setEditedTaskText(taskText);
   };
 
   // Function to edit a task
@@ -135,7 +137,6 @@ export default function TaskList() {
     setModalIsOpen(false);
   };
 
-
   // Delete a Task
   const deleteTask = (task) => {
     Swal.fire({
@@ -146,14 +147,13 @@ export default function TaskList() {
       denyButtonText: `Cancel`,
     }).then((result) => {
       if (result.isConfirmed) {
-
-    let allTasks = tasks;
-    for(let i = 0; i < tasks.length; i++){
-      if(allTasks[i] === task){
-         allTasks.splice(i,1);
-     }
-    }
-    setTasks(allTasks);
+        let allTasks = tasks;
+        for (let i = 0; i < tasks.length; i++) {
+          if (allTasks[i] === task) {
+            allTasks.splice(i, 1);
+          }
+        }
+        setTasks(allTasks);
         let finalTasks = [...tasks, ...completeTask];
         localStorage.setItem("taskify-tasks", JSON.stringify(finalTasks));
         Swal.fire({
@@ -163,16 +163,13 @@ export default function TaskList() {
           showConfirmButton: false,
           timer: 1500,
         });
-        preload()
-      }else{
-        preload()
-      }})
-    
-    // console.log(allTasks)
+        preload();
+      } else {
+        preload();
+      }
+    });
+  };
 
-  }
-
-  
   return (
     <Base>
       <div className="container ">
@@ -184,17 +181,12 @@ export default function TaskList() {
                 <th className="w-25" scope="col">
                   Task
                 </th>
-                
-                {/* High Priority - Red
-                      Medium Priority - Green
-                      Low Priority - Blue */}
+
                 <th className="w-10 text-center" scope="col">
                   Mark as complete
                 </th>
                 <th className="w-10">Edit Task</th>
-                <th className="w-10" >
-                  Delete Task
-                </th>
+                <th className="w-10">Delete Task</th>
               </tr>
             </thead>
             <tbody>
@@ -204,7 +196,16 @@ export default function TaskList() {
                   if (task.priority === 2) {
                     return (
                       <tr key={key}>
-                        <th className="text-primary"><Link className="text-primary" to={"./task-details"} state = {{task:task}} > {task.name}</Link></th>
+                        <th className="text-primary">
+                          <Link
+                            className="text-primary"
+                            to={"./task-details"}
+                            state={{ task: task }}
+                          >
+                            {" "}
+                            {task.name}
+                          </Link>
+                        </th>
                         <td className="text-center">
                           {task.status ? (
                             <input
@@ -244,7 +245,16 @@ export default function TaskList() {
                   if (task.priority === 1) {
                     return (
                       <tr key={key}>
-                        <th className="text-success"><Link className="text-success" to={"./task-details"} state = {{task:task}} > {task.name}</Link></th>
+                        <th className="text-success">
+                          <Link
+                            className="text-success"
+                            to={"./task-details"}
+                            state={{ task: task }}
+                          >
+                            {" "}
+                            {task.name}
+                          </Link>
+                        </th>
                         <td className="text-center">
                           {task.status ? (
                             <input
@@ -269,7 +279,8 @@ export default function TaskList() {
                           >
                             Edit
                           </button>
-                        </td><td>
+                        </td>
+                        <td>
                           <button
                             className="btn btn-danger"
                             onClick={() => deleteTask(task)}
@@ -282,7 +293,16 @@ export default function TaskList() {
                   }
                   return (
                     <tr key={key}>
-                        <th ><Link to={"./task-details"} className="text-success"state = {{task:task}} > {task.name}</Link></th>
+                      <th>
+                        <Link
+                          to={"./task-details"}
+                          className="text-danger"
+                          state={{ task: task }}
+                        >
+                          {" "}
+                          {task.name}
+                        </Link>
+                      </th>
 
                       <td className="text-center">
                         {task.status ? (
@@ -308,14 +328,15 @@ export default function TaskList() {
                         >
                           Edit
                         </button>
-                      </td><td>
-                          <button
-                            className="btn btn-danger"
-                            onClick={() => deleteTask(task)}
-                          >
-                            Delete
-                          </button>
-                        </td>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteTask(task)}
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   );
                 })}
@@ -326,9 +347,18 @@ export default function TaskList() {
                     return (
                       <tr key={key}>
                         <th className="text-danger bg-secondary-subtle">
-                        <s><Link to={"./task-details"} className="text-danger bg-secondary-subtle"state = {{task:task}} > {task.name}</Link></s>
-                      </th>
-                      
+                          <s>
+                            <Link
+                              to={"./task-details"}
+                              className="text-danger bg-secondary-subtle"
+                              state={{ task: task }}
+                            >
+                              {" "}
+                              {task.name}
+                            </Link>
+                          </s>
+                        </th>
+
                         <td className="text-center bg-secondary-subtle">
                           {task.status ? (
                             <input
@@ -355,9 +385,18 @@ export default function TaskList() {
                     return (
                       <tr key={key}>
                         <th className="text-danger bg-secondary-subtle">
-                        <s><Link to={"./task-details"}className="text-danger bg-secondary-subtle" state = {{task:task}} > {task.name}</Link></s>
-                      </th>
-                     
+                          <s>
+                            <Link
+                              to={"./task-details"}
+                              className="text-danger bg-secondary-subtle"
+                              state={{ task: task }}
+                            >
+                              {" "}
+                              {task.name}
+                            </Link>
+                          </s>
+                        </th>
+
                         <td className="text-center bg-secondary-subtle">
                           {task.status ? (
                             <input
@@ -383,9 +422,18 @@ export default function TaskList() {
                   return (
                     <tr key={key}>
                       <th className="text-danger bg-secondary-subtle">
-                        <s><Link to={"./task-details"}className="text-danger bg-secondary-subtle" state = {{task:task}} > {task.name}</Link></s>
+                        <s>
+                          <Link
+                            to={"./task-details"}
+                            className="text-danger bg-secondary-subtle"
+                            state={{ task: task }}
+                          >
+                            {" "}
+                            {task.name}
+                          </Link>
+                        </s>
                       </th>
-                      
+
                       <td className="text-center bg-secondary-subtle">
                         {task.status ? (
                           <input
@@ -494,41 +542,7 @@ export default function TaskList() {
               </button>
             </form>
           </div>
-
-          {/* <input
-          type="text"
-          value={editedTaskText}
-          onChange={(e) => setEditedTaskText(e.target.value)}
-        />
-        <button onClick={saveEditedTask}>Save</button>*/}
         </Modal>
-
-        {/* <input
-              type="text"
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
-              placeholder="Enter a new task"
-            />
-            <button onClick={addTask}>Add Task</button>
-      
-            <ul>
-              {tasks.map(task => (
-                <li key={task.id}>
-                  <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => toggleCompletion(task.id)}
-                  />
-                  <input
-                    type="text"
-                    value={task.text}
-                    onChange={(e) => editTask(task.id, e.target.value)}
-                    disabled={task.completed}
-                  />
-                  <button onClick={() => deleteTask(task.id)}>Delete</button>
-                </li>
-              ))}
-            </ul> */}
       </div>
     </Base>
   );

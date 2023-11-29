@@ -4,17 +4,16 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function AddTask() {
-
   // Structure of a task object
-        // Priority:
-        // High = 0
-        // Medium = 1
-        // Low = 2
+  // Priority:
+  // High = 0
+  // Medium = 1
+  // Low = 2
 
-        // Status
-        // False = Pending
-        // True = Completed
-        
+  // Status
+  // False = Pending
+  // True = Completed
+
   const [newTask, setNewTask] = useState({
     name: "",
     description: "",
@@ -26,8 +25,8 @@ export default function AddTask() {
   const { name, description, priority } = newTask;
 
   const handleChange = (name) => (event) => {
-    if(name === "priority"){
-      let val = parseInt(event.target.value)
+    if (name === "priority") {
+      let val = parseInt(event.target.value);
       return setNewTask({ ...newTask, priority: val });
     }
     setNewTask({ ...newTask, [name]: event.target.value });
@@ -45,31 +44,28 @@ export default function AddTask() {
     if (taskList === null) {
       localStorage.setItem("taskify-tasks", JSON.stringify([newTask]));
     } else {
-
       taskList.push(newTask);
       taskList.sort((a, b) => b.priority - a.priority);
-      taskList.reverse()
+      taskList.reverse();
       localStorage.setItem("taskify-tasks", JSON.stringify(taskList));
     }
-    successMessage()
+    successMessage();
     setNewTask({
       name: "",
       description: "",
       priority: 2,
       status: false,
-    })
+    });
   };
 
   const successMessage = () => {
-    return (
-        Swal.fire({
-          position: "top-center",
-          icon: "success",
-          title: "Task has been saved",
-          showConfirmButton: false,
-          timer: 1500
-        })
-    );
+    return Swal.fire({
+      position: "top-center",
+      icon: "success",
+      title: "Task has been saved",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const errorMessage = () => {
@@ -92,7 +88,6 @@ export default function AddTask() {
         <br />
         <br />
 
-        {/* {successMessage()} */}
         {errorMessage()}
         <form>
           <div className="mb-3">
@@ -141,10 +136,15 @@ export default function AddTask() {
             </div>
           </div>
           <div className="mb-3">
-          <blockquote class="blockquote">
-  <i><p class="mb-0 text-secondary" style={{fontSize: "1rem"}}>High priority tasks are represented by the color red, while low priority tasks are indicated by a blue hue, and medium priority tasks are distinguished by a green color scheme.
-</p></i>
-</blockquote>
+            <blockquote class="blockquote">
+              <i>
+                <p class="mb-0 text-secondary" style={{ fontSize: "1rem" }}>
+                  High priority tasks are represented by the color red, while
+                  low priority tasks are indicated by a blue hue, and medium
+                  priority tasks are distinguished by a green color scheme.
+                </p>
+              </i>
+            </blockquote>
           </div>
 
           <button type="submit" onClick={onSubmit} className="btn btn-primary">

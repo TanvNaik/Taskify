@@ -1,16 +1,14 @@
-import React from 'react'
-import Base from '../Base'
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import Base from "../Base";
+import { Link, useLocation } from "react-router-dom";
 
 export default function ViewTask() {
-    let { state } = useLocation();
-    let task = state.task;
-
+  let { state } = useLocation();
+  let task = state.task;
 
   return (
     <Base>
-    
-        <div className="container">
+      <div className="container">
         <Link to={"/"}>
           <button type="button" class="btn btn-outline-secondary">
             Go Back
@@ -27,6 +25,7 @@ export default function ViewTask() {
               type="text"
               value={task.name}
               name="name"
+              disabled
               className="form-control"
               id="taskName"
             />
@@ -37,6 +36,7 @@ export default function ViewTask() {
                 className="form-control"
                 value={task.description}
                 name="description"
+                disabled
                 id="floatingTextarea"
               ></textarea>
               <label htmlFor="floatingTextarea">Task Description</label>
@@ -48,6 +48,7 @@ export default function ViewTask() {
                 className="form-select"
                 value={task.priority}
                 name="priority"
+                disabled
                 id="floatingSelect"
                 aria-label="Floating label select example"
               >
@@ -72,10 +73,8 @@ export default function ViewTask() {
               id="taskName"
             />
           </div>
-          
-
         </form>
-        </div>
+      </div>
     </Base>
-  )
+  );
 }
