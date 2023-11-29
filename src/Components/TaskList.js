@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Base from "../Base";
 import Swal from "sweetalert2";
 import Modal from "react-modal";
+import { Link } from "react-router-dom";
 
 export default function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -134,6 +135,43 @@ export default function TaskList() {
     setModalIsOpen(false);
   };
 
+
+  // Delete a Task
+  const deleteTask = (task) => {
+    Swal.fire({
+      title: "Are you certain you want to delete this task?",
+      showDenyButton: true,
+      showConfirmButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+    let allTasks = tasks;
+    for(let i = 0; i < tasks.length; i++){
+      if(allTasks[i] === task){
+         allTasks.splice(i,1);
+     }
+    }
+    setTasks(allTasks);
+        let finalTasks = [...tasks, ...completeTask];
+        localStorage.setItem("taskify-tasks", JSON.stringify(finalTasks));
+        Swal.fire({
+          position: "top-center",
+          icon: "fail",
+          title: "Task Deleted Successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        preload()
+      }else{
+        preload()
+      }})
+    
+    // console.log(allTasks)
+
+  }
+
   
   return (
     <Base>
@@ -146,16 +184,17 @@ export default function TaskList() {
                 <th className="w-25" scope="col">
                   Task
                 </th>
-                <th className="w-50 text-center" scope="col ">
-                  Description
-                </th>
+                
                 {/* High Priority - Red
                       Medium Priority - Green
                       Low Priority - Blue */}
                 <th className="w-10 text-center" scope="col">
                   Mark as complete
                 </th>
-                <th>Edit Task</th>
+                <th className="w-10">Edit Task</th>
+                <th className="w-10" >
+                  Delete Task
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -165,8 +204,7 @@ export default function TaskList() {
                   if (task.priority === 2) {
                     return (
                       <tr key={key}>
-                        <th className="text-primary">{task.name}</th>
-                        <td className="text-primary">{task.description}</td>
+                        <th className="text-primary"><Link className="text-primary" to={"./task-details"} state = {{task:task}} > {task.name}</Link></th>
                         <td className="text-center">
                           {task.status ? (
                             <input
@@ -190,6 +228,14 @@ export default function TaskList() {
                             onClick={() => openModal(task, "pending")}
                           >
                             Edit
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => deleteTask(task)}
+                          >
+                            Delete
                           </button>
                         </td>
                       </tr>
@@ -198,8 +244,7 @@ export default function TaskList() {
                   if (task.priority === 1) {
                     return (
                       <tr key={key}>
-                        <th className="text-success">{task.name}</th>
-                        <td className="text-success">{task.description}</td>
+                        <th className="text-success"><Link className="text-success" to={"./task-details"} state = {{task:task}} > {task.name}</Link></th>
                         <td className="text-center">
                           {task.status ? (
                             <input
@@ -224,14 +269,21 @@ export default function TaskList() {
                           >
                             Edit
                           </button>
+                        </td><td>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => deleteTask(task)}
+                          >
+                            Delete
+                          </button>
                         </td>
                       </tr>
                     );
                   }
                   return (
                     <tr key={key}>
-                      <th className="text-danger">{task.name}</th>
-                      <td className="text-danger">{task.description}</td>
+                        <th ><Link to={"./task-details"} className="text-success"state = {{task:task}} > {task.name}</Link></th>
+
                       <td className="text-center">
                         {task.status ? (
                           <input
@@ -256,7 +308,14 @@ export default function TaskList() {
                         >
                           Edit
                         </button>
-                      </td>
+                      </td><td>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => deleteTask(task)}
+                          >
+                            Delete
+                          </button>
+                        </td>
                     </tr>
                   );
                 })}
@@ -266,12 +325,10 @@ export default function TaskList() {
                   if (task.priority === 2) {
                     return (
                       <tr key={key}>
-                        <th className="text-primary bg-secondary-subtle">
-                          {task.name}
-                        </th>
-                        <td className="text-primary bg-secondary-subtle">
-                          {task.description}
-                        </td>
+                        <th className="text-danger bg-secondary-subtle">
+                        <s><Link to={"./task-details"} className="text-danger bg-secondary-subtle"state = {{task:task}} > {task.name}</Link></s>
+                      </th>
+                      
                         <td className="text-center bg-secondary-subtle">
                           {task.status ? (
                             <input
@@ -289,6 +346,7 @@ export default function TaskList() {
                             />
                           )}
                         </td>
+                        <td className="text-center bg-secondary-subtle"></td>
                         <td className="text-center bg-secondary-subtle"></td>
                       </tr>
                     );
@@ -296,12 +354,10 @@ export default function TaskList() {
                   if (task.priority === 1) {
                     return (
                       <tr key={key}>
-                        <th className="text-success bg-secondary-subtle">
-                          {task.name}
-                        </th>
-                        <td className="text-success bg-secondary-subtle">
-                          {task.description}
-                        </td>
+                        <th className="text-danger bg-secondary-subtle">
+                        <s><Link to={"./task-details"}className="text-danger bg-secondary-subtle" state = {{task:task}} > {task.name}</Link></s>
+                      </th>
+                     
                         <td className="text-center bg-secondary-subtle">
                           {task.status ? (
                             <input
@@ -320,17 +376,16 @@ export default function TaskList() {
                           )}
                         </td>
                         <td className="text-center bg-secondary-subtle"></td>
+                        <td className="text-center bg-secondary-subtle"></td>
                       </tr>
                     );
                   }
                   return (
                     <tr key={key}>
                       <th className="text-danger bg-secondary-subtle">
-                        {task.name}
+                        <s><Link to={"./task-details"}className="text-danger bg-secondary-subtle" state = {{task:task}} > {task.name}</Link></s>
                       </th>
-                      <td className="text-danger bg-secondary-subtle">
-                        {task.description}
-                      </td>
+                      
                       <td className="text-center bg-secondary-subtle">
                         {task.status ? (
                           <input
@@ -348,6 +403,7 @@ export default function TaskList() {
                           />
                         )}
                       </td>
+                      <td className="text-center bg-secondary-subtle"></td>
                       <td className="text-center bg-secondary-subtle"></td>
                     </tr>
                   );
