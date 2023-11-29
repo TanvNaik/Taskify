@@ -7,12 +7,11 @@ import TaskList from './Components/TaskList'
 
 export default function Routers() {
   return (
-    <BrowserRouter basename={window.location.pathname || ''}>
+    <BrowserRouter basename="https://tanvnaik.github.io/Taskify/">
         <Switch>
             <Route path = "/" exact element = {<TaskList/>} />
             <Route path = "/add-task" exact element = {<AddTask/>} />
             <Route path = "/edit-task" exact element = {<EditTask/>} />
-
         </Switch>
     </BrowserRouter>
   )
